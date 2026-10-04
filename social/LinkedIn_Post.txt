@@ -1,0 +1,24 @@
+🧴 New Portfolio Project: AromaKart Perfume Sales Analytics Dashboard
+
+I built a complete, end-to-end Data Analyst project from scratch — covering Excel, SQL, Python, and Tableau — using a realistic 18-month sales dataset (3,000 orders) for a fictional Indian online perfume retailer.
+
+The business problem: AromaKart didn't know which brands, cities, or customers were actually driving profitable revenue, and had no data-backed view of how much discounting and returns were costing them.
+
+What I did:
+📊 Excel — built a KPI dashboard with live formulas (SUMIFS/COUNTIFS) and pivot-style cross-tabs, no hardcoded numbers
+🗄️ SQL — wrote 15+ queries in SQLite covering revenue trends, customer segmentation, and seasonality
+🐍 Python — ran a full EDA in Pandas + Matplotlib, producing 6 charts and a written summary of findings
+📈 Tableau — combined everything into a 5-panel executive dashboard
+
+Key findings:
+→ Revenue spikes hard around Diwali and New Year — a clear signal for inventory planning
+→ Premium brands earn more per order but sell far less often than budget brands (classic margin-vs-volume trade-off)
+→ Premium perfumes have a noticeably higher return rate than budget ones
+→ UPI dominates the payment mix
+→ A meaningful share of revenue comes from repeat customers — a strong case for a loyalty program
+
+This project pushed me to think like an analyst end-to-end: framing the business problem first, then choosing the right tool for each question rather than jumping straight into charts.
+
+Full project (dataset, dashboards, SQL, notebook, and write-up) is on my GitHub — link in comments.
+
+#DataAnalytics #SQL #Python #Tableau #Excel #PortfolioProject #DataAnalyst #EcommerceAnalytics

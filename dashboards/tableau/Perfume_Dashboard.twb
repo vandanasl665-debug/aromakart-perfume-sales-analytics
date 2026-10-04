@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- build 2023.3 -->
+<workbook source-build='2023.3.0' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='perfume_sales' inline='true' name='federated.perfumesales' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='perfume_sales.csv' name='textscan.perfumesales'>
+            <connection class='textscan' directory='../../data' filename='perfume_sales.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.perfumesales' name='perfume_sales.csv' table='[perfume_sales#csv]' type='table' />
+        <metadata-records>
+        <column datatype="string" name="[Order_ID]" role="dimension" type="nominal" />
+        <column datatype="date" name="[Order_Date]" role="dimension" type="ordinal" />
+        <column datatype="string" name="[Customer_ID]" role="dimension" type="nominal" />
+        <column datatype="string" name="[Customer_Name]" role="dimension" type="nominal" />
+        <column datatype="string" name="[City]" role="dimension" type="nominal" />
+        <column datatype="string" name="[State]" role="dimension" type="nominal" />
+        <column datatype="string" name="[Brand]" role="dimension" type="nominal" />
+        <column datatype="string" name="[Perfume_Name]" role="dimension" type="nominal" />
+        <column datatype="string" name="[Category]" role="dimension" type="nominal" />
+        <column datatype="integer" name="[Quantity]" role="measure" type="quantitative" />
+        <column datatype="real" name="[Price]" role="measure" type="quantitative" />
+        <column datatype="real" name="[Discount_Percentage]" role="measure" type="quantitative" />
+        <column datatype="real" name="[Total_Amount]" role="measure" type="quantitative" />
+        <column datatype="string" name="[Payment_Method]" role="dimension" type="nominal" />
+        <column datatype="string" name="[Delivery_Status]" role="dimension" type="nominal" />
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Brand Tier' datatype='string' name='[Calculation.BrandTier]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [Brand] = &quot;Dior&quot; OR [Brand] = &quot;Chanel&quot; OR [Brand] = &quot;Gucci&quot; OR [Brand] = &quot;Versace&quot; OR [Brand] = &quot;Tom Ford&quot; OR [Brand] = &quot;Burberry&quot; OR [Brand] = &quot;Armani&quot; THEN &quot;Premium&quot;&#10;ELSEIF [Brand] = &quot;Calvin Klein&quot; OR [Brand] = &quot;Zara&quot; THEN &quot;Mid&quot;&#10;ELSE &quot;Budget&quot;&#10;END' />
+      </column>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Revenue by City'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='perfume_sales' name='federated.perfumesales' />
+          </datasources>
+          <rows>[federated.perfumesales].[City]</rows>
+          <cols>[federated.perfumesales].[sum:Total_Amount:qk]</cols>
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.perfumesales].[City]</rows>
+        <cols>[federated.perfumesales].[sum:Total_Amount:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Revenue by Brand'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='perfume_sales' name='federated.perfumesales' />
+          </datasources>
+          <rows>[federated.perfumesales].[Brand]</rows>
+          <cols>[federated.perfumesales].[sum:Total_Amount:qk]</cols>
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.perfumesales].[Brand]</rows>
+        <cols>[federated.perfumesales].[sum:Total_Amount:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Monthly Revenue Trend'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='perfume_sales' name='federated.perfumesales' />
+          </datasources>
+          <rows>[federated.perfumesales].[sum:Total_Amount:qk]</rows>
+          <cols>[federated.perfumesales].[tmn:Order_Date:ok]</cols>
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+        </panes>
+        <rows>[federated.perfumesales].[sum:Total_Amount:qk]</rows>
+        <cols>[federated.perfumesales].[tmn:Order_Date:ok]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Delivery Status by Brand Tier'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='perfume_sales' name='federated.perfumesales' />
+          </datasources>
+          <rows>[federated.perfumesales].[Calculation.BrandTier]</rows>
+          <cols>[federated.perfumesales].[cnt:Order_ID:qk]</cols>
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.perfumesales].[Calculation.BrandTier]</rows>
+        <cols>[federated.perfumesales].[cnt:Order_ID:qk]</cols>
+        <encodings>
+          <color column='[federated.perfumesales].[Delivery_Status]' />
+        </encodings>
+      </table>
+    </worksheet>
+    <worksheet name='Payment Method Mix'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='perfume_sales' name='federated.perfumesales' />
+          </datasources>
+          <rows>[federated.perfumesales].[Payment_Method]</rows>
+          <cols>[federated.perfumesales].[cnt:Order_ID:qk]</cols>
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.perfumesales].[Payment_Method]</rows>
+        <cols>[federated.perfumesales].[cnt:Order_ID:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='AromaKart Executive Dashboard'>
+      <style />
+      <size maxheight='900' maxwidth='1400' minheight='900' minwidth='1400' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='1' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='50000' id='2' name='Revenue by City' w='50000' x='0' y='0' />
+          <zone h='50000' id='3' name='Revenue by Brand' w='50000' x='50000' y='0' />
+          <zone h='50000' id='4' name='Monthly Revenue Trend' w='50000' x='0' y='50000' />
+          <zone h='25000' id='5' name='Delivery Status by Brand Tier' w='50000' x='50000' y='50000' />
+          <zone h='25000' id='6' name='Payment Method Mix' w='50000' x='50000' y='75000' />
+        </zone>
+      </zones>
+    </dashboard>
+  </dashboards>
+</workbook>
